@@ -25,4 +25,4 @@ jobs:
       run: |
         cd AwesomeApp
         nuget restore
-        msbuild AwesomeApp.iOS/AwesomeApp.iOS.csproj /verbosity:normal /t:Rebuild /p:Configuration=debug /p:Platform=iPhone /t:Clean
+        msbuild AwesomeApp.iOS/AwesomeApp.iOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhoneSimulator /p:Configuration=Debug

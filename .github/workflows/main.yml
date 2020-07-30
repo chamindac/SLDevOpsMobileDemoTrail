@@ -1,0 +1,23 @@
+on: [push, pull_request]
+
+jobs:
+  Android:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Android
+      run: |
+        cd AwesomeApp
+        nuget restore
+        cd AwesomeApp.Android
+        msbuild AwesomeApp.Android.csproj /verbosity:normal /t:PackageForAndroid /p:Configuration=Debug
+  
+  iOS:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: iOS
+      run: |
+        cd AwesomeApp
+        nuget restore
+        msbuild AwesomeApp.iOS/AwesomeApp.iOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhoneSimulator /p:Configuration=Debug

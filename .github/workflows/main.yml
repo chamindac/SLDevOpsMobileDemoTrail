@@ -26,3 +26,26 @@ jobs:
         cd AwesomeApp
         nuget restore
         msbuild AwesomeApp.iOS/AwesomeApp.iOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhoneSimulator /p:Configuration=Debug
+        
+
+  AppCenterDistibute:
+    runs-on: ubuntu-latest
+    needs: Android
+    steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: my-artifact
+
+    - name: App Center
+      uses: wzieba/AppCenter-Github-Action@v1.0.0
+      with:
+        # App name followed by username 
+        appName: Ch-DemoOrg/SLDevOpsDemoTrail
+        # Upload token - you can get one from appcenter.ms/settings
+        token: ${{ secrets.AppCenterAPIToken }}
+        # Distribution group
+        group: alphatesters
+        # Artefact to upload (.apk or .ipa)
+        file: AwesomeApp/AwesomeApp.Android/bin/Debug/com.companyname.AwesomeApp.apk
+        # Release notes visible on release page
+        releaseNotes: "demo test"

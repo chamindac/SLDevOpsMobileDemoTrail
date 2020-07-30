@@ -11,6 +11,11 @@ jobs:
         nuget restore
         cd AwesomeApp.Android
         msbuild AwesomeApp.Android.csproj /verbosity:normal /t:PackageForAndroid /p:Configuration=Debug
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: "**/bin/Debug/com.companyname.AwesomeApp.apk"
   
   iOS:
     runs-on: macos-latest
@@ -20,4 +25,4 @@ jobs:
       run: |
         cd AwesomeApp
         nuget restore
-        msbuild AwesomeApp.iOS/AwesomeApp.iOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhoneSimulator /p:Configuration=Debug
+        msbuild AwesomeApp.iOS/AwesomeApp.iOS.csproj /verbosity:normal /t:Rebuild /p:Configuration=debug /p:Platform=iPhone /t:Clean
